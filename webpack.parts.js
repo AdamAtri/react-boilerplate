@@ -206,6 +206,30 @@ exports.extractCSS = function(paths) {
   };
 }
 
+exports.extractSCSS = function(paths) {
+  const extractSass = new ExtractTextPlugin({
+    filename: "[name].css",
+    disable: false
+  });
+
+  return {
+    module: {
+      rules: [{
+        test: /\.scss$/,
+        use: extractSass.extract({
+          use: [
+            { loader: 'css-loader' },
+            { loader: 'sass-loader', options: {includePaths: paths}}
+          ],
+          fallback: 'style-loader'
+        })
+      }],
+      plugins: [ extractSass ]
+    }
+  };
+
+}
+
 exports.npmInstall = function(options) {
   options = options || {};
 

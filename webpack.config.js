@@ -75,7 +75,8 @@ switch(TARGET) {
         entries: ['react', 'react-dom']
       }),
       parts.minify(),
-      parts.extractCSS(PATHS.style)
+      parts.extractCSS(PATHS.style),
+      parts.extractSCSS(PATHS.app)
     );
     break;
   case 'test':
@@ -99,6 +100,7 @@ switch(TARGET) {
         }
       },
       parts.setupCSS(PATHS.style),
+      parts.extractSCSS(PATHS.app),
       parts.devServer({
         // Customize host/port here if needed
         host: process.env.HOST,
